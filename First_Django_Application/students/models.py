@@ -3,8 +3,10 @@ from datetime import date
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from .validators import valid_email_domains, ValidEmailDomain
 from faker import Faker
+
+from .validators import ValidEmailDomain, valid_email_domains
+
 
 VALID_DOMAIN_LIST = ('@mail.com', '@gmail.com', '@yahoo.com')
 
@@ -48,4 +50,3 @@ class Student(models.Model):
                 st.save()
             except:
                 print(f'Incorrect data {first_name}, {last_name}, {birthday}, {email}')
-
