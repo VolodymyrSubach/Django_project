@@ -27,7 +27,6 @@ class ValidEmailDomain:
 
 
 def validate_unique_email(value):
-
     if students.models.Student.objects.filter(email=value):
         raise ValidationError(f'Your email <{value}> already exist.')
     else:
