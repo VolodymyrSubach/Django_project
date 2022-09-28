@@ -31,3 +31,10 @@ def validate_unique_email(value):
         raise ValidationError(f'Your email <{value}> already exist.')
     else:
         pass
+
+
+def validate_unique_phone(value):
+    if students.models.Student.objects.filter(phone=value):
+        raise ValidationError(f'Your phone number <{value}> already exist.')
+    else:
+        pass

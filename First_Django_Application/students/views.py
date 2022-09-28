@@ -30,6 +30,11 @@ def get_students(request, args):
         students = students.filter(
             Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
         )
+    if 'first_name' in args:
+        students = students.filter(first_name=args['first_name'])
+
+    if 'last_name' in args:
+        students = students.filter(last_name=args['last_name'])
 
     return render(
         request=request,
