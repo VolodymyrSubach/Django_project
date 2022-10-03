@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS - {{ title }}</title>
+</head>
+<body>
+
+    <p><a href="/teachers/update/{{ teacher.pk }}/"> {{ teacher.first_name }}</a></p>
+    <p>{{ teacher.last_name }}</p>
+    <p>{{ teacher.email }}</p>
+    <p>{{ teacher.birthday }}</p>
+    <p>{{ teacher.phone }}</p>
+    <p>{{ teacher.subject }}</p>
+    <a href="/teachers/">Back to list</a>
+
+</body>
+</html>
