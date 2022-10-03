@@ -1,11 +1,13 @@
 from datetime import date
 
+from core.validators import validate_group_description
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 from faker import Faker
 
-from groups.validators import validate_start_date, validate_group_description
+from groups.validators import validate_start_date
 
 GROUPNAME = ['Python', 'Php', 'Java', 'Javascript', 'HR generalist',
              'QA Manual', 'QA Automation', 'UI/UX Design']

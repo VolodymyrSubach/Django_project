@@ -1,7 +1,6 @@
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
-
 from django.shortcuts import render
 
 from teachers.forms import UpdateTeacherForm

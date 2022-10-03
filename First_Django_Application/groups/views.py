@@ -1,7 +1,7 @@
 from django.db.models import Q
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
+from django.shortcuts import render
 
 from groups.forms import UpdateGroupForm
 from groups.models import Group

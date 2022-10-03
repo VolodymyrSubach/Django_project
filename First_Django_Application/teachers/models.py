@@ -1,15 +1,19 @@
 from datetime import date
 
-from django.core.validators import MinLengthValidator
+from core.validators import valid_email_domains, validate_group_description, validate_unique_email, \
+    validate_unique_phone
 
+from django.core.validators import MinLengthValidator
 from django.db import models
+
 
 from faker import Faker
 
+
 from groups.models import GROUPNAME
+
+
 from students.models import VALID_DOMAIN_LIST
-from teachers.validators import valid_email_domains, validate_unique_email, validate_unique_phone, \
-    validate_group_description
 
 validate_name = ['Python', 'Php', 'Java', 'Javascript', 'HR generalist',
                  'QA Manual', 'QA Automation', 'UI/UX Design']
@@ -33,7 +37,7 @@ class Teacher(models.Model):
 
     email = models.EmailField(validators=[valid_email_domains, validate_unique_email])
 
-    phone = models.CharField(max_length=20, null=True, blank=True)
+    phone = models.CharField(max_length=20, validators=[validate_unique_phone], null=True, blank=True)
 
     subject_name = models.CharField(max_length=13, validators=[validate_group_description])
 
