@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LMS - {{ title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
     <form method='GET'>
         <label for="gname">Group name:</label>
         <input type="text" id="gname" name="group_name" placeholder="Php_02-05-2022"><br><br>
         <label for="gdescription">Group description:</label>
         <input type="text" id="gdescription" name="group_description" placeholder="Php"><br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit"><br><br>
+        <a href="{% url 'group:create' %}">Create a new group</a><br><br>
     </form>
     <table>
     {% for group in groups %}
     <tr>
         <td>{{ group.pk }}</td>
-        <td><a href="detail/{{ group.pk }}/"> {{ group.group_name }}</a></td>
+        <td><a href="{% url 'group:detail' group.pk %}"> {{ group.group_name }}</a></td>
         <td>{{ group.group_description }}</td>
         <td>{{ group.group_start_date }}</td>
-        <td><a href="update/{{ group.pk }}/">Edit</a></td>
+        <td><a href="{% url 'group:update' group.pk %}">Edit</a></td>
+        <td><a href="{% url 'group:delete' group.pk %}">Delete</a></td>
     </tr>
      {% endfor %}
     </table>
-</body>
-</html>
+
+{% endblock %}

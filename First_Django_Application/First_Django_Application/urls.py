@@ -15,26 +15,13 @@ Including another URLconf
 """
 from core.views import index
 
-
 from django.contrib import admin
 from django.urls import include, path
-
-
-from groups.views import detail_group, get_group, update_group
-
-
-from teachers.views import detail_teacher, get_teacher, update_teacher
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='home'),
     path('students/', include('students.urls')),
-    path('groups/', get_group),
-    path('groups/detail/<int:group_id>/', detail_group),
-    path('groups/update/<int:group_id>/', update_group),
-    path('teachers/', get_teacher),
-    path('teachers/detail/<int:teacher_id>/', detail_teacher),
-    path('teachers/update/<int:teacher_id>/', update_teacher),
+    path('groups/', include('groups.urls')),
+    path('teachers/', include('teachers.urls')),
 ]
-
-# https://docs.djangoproject.com:8000/en/4.1/topics/http/urls/
