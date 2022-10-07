@@ -1,9 +1,7 @@
 from datetime import date
 
-
-from core.validators import ValidEmailDomain, validate_unique_email, validate_unique_phone
-
-from dateutil.relativedelta import relativedelta
+from core.validators import valid_email_domains, validate_group_description, validate_unique_email, \
+    validate_unique_phone
 
 from django.core.validators import MinLengthValidator
 from django.db import models
@@ -11,10 +9,17 @@ from django.db import models
 
 from faker import Faker
 
-VALID_DOMAIN_LIST = ('@mail.com', '@gmail.com', '@yahoo.com')
+
+from groups.models import GROUPNAME
 
 
-class Student(models.Model):
+from students.models import VALID_DOMAIN_LIST
+
+validate_name = ['Python', 'Php', 'Java', 'Javascript', 'HR generalist',
+                 'QA Manual', 'QA Automation', 'UI/UX Design']
+
+
+class Teacher(models.Model):
     first_name = models.CharField(
         max_length=100,
         verbose_name='first name',
@@ -30,18 +35,17 @@ class Student(models.Model):
     )
     birthday = models.DateField(default=date.today, null=True, blank=True)
 
-    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
+    email = models.EmailField(validators=[valid_email_domains, validate_unique_email])
 
     phone = models.CharField(max_length=20, validators=[validate_unique_phone], null=True, blank=True)
+
+    subject_name = models.CharField(max_length=13, validators=[validate_group_description])
 
     def __str__(self):
         return f'{self.pk}{self.first_name} {self.last_name}'
 
-    def get_age(self):
-        return relativedelta(date.today(), self.birthday).years
-
     class Meta:
-        db_table = 'students'
+        db_table = 'teachers'
 
     @classmethod
     def generate_fake_data(cls, cnt):
@@ -51,10 +55,13 @@ class Student(models.Model):
             first_name = f.first_name()
             last_name = f.last_name()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
+            # phone = f.phone_number
             birthday = f.date()
-            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email)
+            subject_name = f'{f.random.choice(GROUPNAME)}'
+            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email,
+                     subject_name=subject_name)
             try:
                 st.full_clean()
                 st.save()
             except:
-                print(f'Incorrect data {first_name}, {last_name}, {birthday}, {email}')
+                print(f'Incorrect data {first_name}, {last_name}, {birthday}, {email}, {subject_name}')
