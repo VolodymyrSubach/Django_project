@@ -2,6 +2,8 @@ import re
 
 from django import forms
 
+from django_filters import FilterSet
+
 from students.models import Student
 
 
@@ -86,3 +88,12 @@ class UpdateStudentForm(forms.ModelForm):
             return value
         else:
             pass
+
+
+class StudentFilterForm(FilterSet):
+    class Meta:
+        model = Student
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith']
+        }

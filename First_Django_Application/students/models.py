@@ -11,6 +11,8 @@ from django.db import models
 
 from faker import Faker
 
+from groups.models import Group
+
 VALID_DOMAIN_LIST = ('@mail.com', '@gmail.com', '@yahoo.com')
 
 
@@ -33,6 +35,9 @@ class Student(models.Model):
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
 
     phone = models.CharField(max_length=20, validators=[validate_unique_phone], null=True, blank=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name='students')
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.pk}{self.first_name} {self.last_name}'
