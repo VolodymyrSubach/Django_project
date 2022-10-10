@@ -6,9 +6,14 @@ Delete group
 
 {% block content %}
     <form method="post">
-        {%  csrf_token %}
-        <p>Do you want to remove '{{ group.group_name }} {{ group.group_description }}"</p>
-        <input type="submit" value="Agree">
-        <a href="{% url 'group:list' %}">cancel</a>
-    </form>
+    {%  csrf_token %}
+    <div class="card">
+        <h5 class="card-header">Removal</h5>
+    <div class="card-body">
+    <p class="card-text">Do you want to remove group {{ group.group_name }}?</p>
+    <input type="submit" class="btn btn-danger btn-sm" value="Agree">
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'group:list' %}">Cancel</a>
+  </div>
+</div>
+</form>
 {% endblock %}

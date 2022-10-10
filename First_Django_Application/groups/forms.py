@@ -13,7 +13,10 @@ class CreateGroupForm(forms.ModelForm):
         ]
 
         widgets = {
-            'group_start_date': forms.DateInput(attrs={'type': 'date'})}
+            'group_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'group_start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'group_description': forms.DateInput(attrs={'class': 'form-control'})
+        }
 
 
 class UpdateGroupForm(forms.ModelForm):
@@ -26,4 +29,7 @@ class UpdateGroupForm(forms.ModelForm):
         ]
 
         widgets = {
-            'group_start_date': forms.DateInput(attrs={'type': 'date'})}
+            'group_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'group_start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'group_description': forms.DateInput(attrs={'class': 'form-control'})
+        }

@@ -9,8 +9,8 @@ Update student
         {%  csrf_token %}
         <table>
             {{ form.as_table }}
-        </table>
-        <input type="submit" value="Update">
-        <a href="{% url 'student:list' %}">cancel</a>
+        </table><br>
+        <input type="submit" class="btn btn-outline-primary btn-sm" value="Update">
+        <a class="btn btn-outline-secondary btn-sm" href="{% url 'student:list' %}">Cancel</a>
     </form>
 {% endblock %}
