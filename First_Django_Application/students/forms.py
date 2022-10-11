@@ -2,6 +2,8 @@ import re
 
 from django import forms
 
+from django_filters import FilterSet
+
 from students.models import Student
 
 
@@ -9,7 +11,6 @@ class CreateStudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = [
-            # '__all__',
             'first_name',
             'last_name',
             'birthday',
@@ -18,7 +19,11 @@ class CreateStudentForm(forms.ModelForm):
         ]
 
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'email': forms.DateInput(attrs={'class': 'form-control'}),
+            'phone': forms.DateInput(attrs={'class': 'form-control'}),
         }
 
     def clean_birthday(self):
@@ -51,7 +56,6 @@ class UpdateStudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = [
-            # '__all__',
             'first_name',
             'last_name',
             'birthday',
@@ -59,7 +63,10 @@ class UpdateStudentForm(forms.ModelForm):
         ]
 
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'phone': forms.DateInput(attrs={'class': 'form-control'}),
         }
 
     def clean_first_name(self):
@@ -81,3 +88,12 @@ class UpdateStudentForm(forms.ModelForm):
             return value
         else:
             pass
+
+
+class StudentFilterForm(FilterSet):
+    class Meta:
+        model = Student
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith']
+        }

@@ -6,7 +6,7 @@ from students.views import detail_student
 from students.views import get_students
 from students.views import update_student
 
-app_name = 'student'
+app_name = 'students'
 
 urlpatterns = [
     path('', get_students, name='list'),

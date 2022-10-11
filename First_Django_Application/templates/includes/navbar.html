@@ -17,16 +17,36 @@
             Student
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'student:create' %}">Create</a></li>
-            <li><a class="dropdown-item" href="{% url 'student:list' %}">List</a></li>
+            <li><a class="dropdown-item" href="{% url 'students:create' %}">Create</a></li>
+            <li><a class="dropdown-item" href="{% url 'students:list' %}">List</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Teacher
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'teacher:create' %}">Create</a></li>
+            <li><a class="dropdown-item" href="{% url 'teacher:list' %}">List</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Group
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'group:create' %}">Create</a></li>
+            <li><a class="dropdown-item" href="{% url 'group:list' %}">List</a></li>
             <li><hr class="dropdown-divider"></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+{#      <form class="d-flex" role="search">#}
+{#        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
+{#        <button class="btn btn-outline-success" type="submit">Search</button>#}
+{#      </form>#}
     </div>
   </div>
 </nav>

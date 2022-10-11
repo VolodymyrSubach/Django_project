@@ -2,26 +2,51 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+
 {% block content %}
 
-    <form method='GET'>
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="first_name" placeholder="John"><br><br>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="last_name" placeholder="Doe"><br><br>
-        <input type="submit" value="Submit"><br><br>
-    <a href="{% url 'teacher:create' %}">Create a new teacher</a><br><br>
-    </form>
-    <table>
+    <div class="row mb-3">
+        <div class="col">
+        <form method='GET'>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingFirstName" placeholder="A" name="first_name">
+                <label for="floatingFirstName">First name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingLastName" placeholder="B" name="last_name">
+                <label for="floatingLastName">Last name</label>
+            </div>
+            <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
+        </form>
+        </div>
+    <div class="col-6"></div>
+    </div>
+    <div class="row">
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>N</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Subject</th>
+            <th>Age</th>
+            <th><i class="bi bi-pencil-fill"></i></th>
+            <th><i class="bi bi-trash-fill"></i></th>
+        </tr>
+    </thead>
+    <tbody>
     {% for teacher in teachers %}
     <tr>
-        <td>{{ teacher.pk }}</td>
+        <td>{{ forloop.counter }}</td>
         <td><a href="{% url 'teacher:detail' teacher.pk %}"> {{ teacher.first_name }}</a></td>
         <td>{{ teacher.last_name }}</td>
-        <td><a href="{% url 'teacher:update' teacher.pk %}">Edit</a></td>
-        <td><a href="{% url 'teacher:delete' teacher.pk %}">Delete</a></td>
+        <td>{{ teacher.subject_name }}</td>
+        <td>{% if teacher.get_age %}{{ teacher.get_age }}{% endif %}</td>
+        <td><a class="btn btn-outline-primary btn-sm" href="{% url 'teacher:update' teacher.pk %}">Edit</a></td>
+        <td><a class="btn btn-outline-danger btn-sm" href="{% url 'teacher:delete' teacher.pk %}">Delete</a></td>
     </tr>
      {% endfor %}
+    </tbody>
     </table>
-
+    </div>
 {% endblock %}

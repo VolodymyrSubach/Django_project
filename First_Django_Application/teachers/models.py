@@ -3,15 +3,14 @@ from datetime import date
 from core.validators import valid_email_domains, validate_group_description, validate_unique_email, \
     validate_unique_phone
 
+from dateutil.relativedelta import relativedelta
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-
 from faker import Faker
 
-
 from groups.models import GROUPNAME
-
 
 from students.models import VALID_DOMAIN_LIST
 
@@ -65,3 +64,6 @@ class Teacher(models.Model):
                 st.save()
             except:
                 print(f'Incorrect data {first_name}, {last_name}, {birthday}, {email}, {subject_name}')
+
+    def get_age(self):
+        return relativedelta(date.today(), self.birthday).years

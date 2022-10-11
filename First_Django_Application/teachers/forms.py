@@ -18,7 +18,12 @@ class CreateTeacherForm(forms.ModelForm):
         ]
 
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'email': forms.DateInput(attrs={'class': 'form-control'}),
+            'phone': forms.DateInput(attrs={'class': 'form-control'}),
+            'subject_name': forms.DateInput(attrs={'class': 'form-control'})
         }
 
 
@@ -30,11 +35,16 @@ class UpdateTeacherForm(forms.ModelForm):
             'last_name',
             'birthday',
             'phone',
+            'subject_name'
 
         ]
 
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'phone': forms.DateInput(attrs={'class': 'form-control'}),
+            'subject_name': forms.DateInput(attrs={'class': 'form-control'})
         }
 
     def clean_first_name(self):

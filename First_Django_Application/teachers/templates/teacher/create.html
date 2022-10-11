@@ -9,8 +9,8 @@ Create a new teacher
         {%  csrf_token %}
         <table>
             {{ form.as_table }}
-        </table>
-        <input type="submit" value="Create">
-        <a href="{% url 'teacher:list' %}">Cancel</a>
+        </table><br>
+        <input type="submit" class="btn btn-outline-primary btn-sm" value="Create">
+        <a class="btn btn-outline-secondary btn-sm" href="{% url 'teacher:list' %}">Cancel</a>
     </form>
 {% endblock %}
