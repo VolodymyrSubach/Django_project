@@ -33,6 +33,8 @@ class Group(models.Model):
         db_column='group_description',
         default='test',
     )
+    headman = models.OneToOneField(
+        'students.Student', on_delete=models.SET_NULL, null=True, blank=True, related_name='headman_group')
 
     def __str__(self):
         return f'{self.group_name} {self.group_start_date}'
