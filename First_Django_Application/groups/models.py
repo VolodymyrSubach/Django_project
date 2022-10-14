@@ -1,16 +1,16 @@
 from datetime import date
 
-from core.validators import validate_group_description
+from core.validators import validate_group_description # noqa
 
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from faker import Faker
+from faker import Fakerv# noqa
 
 from groups.validators import validate_start_date
 
-GROUPNAME = ['Python', 'Php', 'Java', 'Javascript', 'HR generalist',
-             'QA Manual', 'QA Automation', 'UI/UX Design']
+GROUPNAME = (('fe', 'Front-End'), ('hr', 'HR'), ('j', 'Java'), ('qa', 'QA Manual'), ('qaA', 'QA Automation'),
+                     ('pt', 'Python'), ('ux', 'UI/UX Design'))
 
 
 class Group(models.Model):
@@ -27,11 +27,10 @@ class Group(models.Model):
         db_column='group_start_date')
 
     group_description = models.CharField(
-        validators=[validate_group_description],
         max_length=600,
         verbose_name='group description',
         db_column='group_description',
-        default='test',
+        choices=GROUPNAME
     )
     headman = models.OneToOneField(
         'students.Student', on_delete=models.SET_NULL, null=True, blank=True, related_name='headman_group')
@@ -42,17 +41,17 @@ class Group(models.Model):
     class Meta:
         db_table = 'group'
 
-    @classmethod
-    def generate_fake_data(cls, cnt):
-        f = Faker()
-
-        for _ in range(cnt):
-            group_start_date = f.date()
-            group_description = f'{f.random.choice(GROUPNAME)}'
-            group_name = f'{group_description}_{group_start_date}'
-            st = cls(group_name=group_name, group_start_date=group_start_date, group_description=group_description)
-            try:
-                st.full_clean()
-                st.save()
-            except:
-                print(f'Incorrect data {group_name}, {group_start_date}, {group_description}')
+    # @classmethod
+    # def generate_fake_data(cls, cnt):
+    #     f = Faker()
+    #
+    #     for _ in range(cnt):
+    #         group_start_date = f.date()
+    #         group_description = f'{f.random.choice(GROUPNAME)}'
+    #         group_name = f'{group_description}_{group_start_date}'
+    #         st = cls(group_name=group_name, group_start_date=group_start_date, group_description=group_description)
+    #         try:
+    #             st.full_clean()
+    #             st.save()
+    #         except:
+    #             print(f'Incorrect data {group_name}, {group_start_date}, {group_description}')

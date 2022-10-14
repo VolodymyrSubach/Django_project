@@ -1,36 +1,27 @@
-from django.db.models import Q
+from django.db.models import Q # noqa
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from groups.forms import CreateGroupForm, UpdateGroupForm
+from groups.forms import CreateGroupForm, GroupFilterForm, UpdateGroupForm
 from groups.models import Group
 
-from webargs.djangoparser import use_args
-from webargs.fields import Str
+from webargs.djangoparser import use_args # noqa
+from webargs.fields import Str # noqa
 
 
-@use_args(
-    {
-        'group_name': Str(required=False),
-        'group_description': Str(required=False),
-    },
-    location='query'
-)
-def get_group(request, args):
-    groups = Group.objects.all()
+def get_group(request):
+    groups = Group.objects.select_related('group')
 
-    if len(args) != 0 and args.get('group_name') or args.get('group_description'):
-        groups = groups.filter(
-            Q(group_name=args.get('group_name', '')) | Q(group_description=args.get('group_description', ''))
-        )
+    filter_form = GroupFilterForm(data=request.GET, queryset=groups)
 
     return render(
         request=request,
         template_name='groups/list.html',
         context={
             'title': 'List of Groups',
-            'groups': groups
+            'groups': groups,
+            'filter_form': filter_form
         }
     )
 

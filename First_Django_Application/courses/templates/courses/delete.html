@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete course
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+    {%  csrf_token %}
+    <div class="card">
+        <h5 class="card-header">Removal</h5>
+    <div class="card-body">
+    <p class="card-text">Do you want to remove course {{ course.course_name }}?</p>
+    <input type="submit" class="btn btn-danger btn-sm" value="Agree">
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'course:list' %}">Cancel</a>
+  </div>
+</div>
+</form>
+{% endblock %}

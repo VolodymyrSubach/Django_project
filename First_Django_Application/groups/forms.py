@@ -1,5 +1,7 @@
 from django import forms
 
+from django_filters import FilterSet
+
 from groups.models import Group
 
 
@@ -9,15 +11,14 @@ class GroupBaseForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'group_name': forms.DateInput(attrs={'class': 'form-control'}),
-            'group_start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'group_description': forms.DateInput(attrs={'class': 'form-control'})
+            'group_start_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
 
 class CreateGroupForm(GroupBaseForm):
     from students.models import Student
     students = forms.ModelMultipleChoiceField(queryset=Student.objects.select_related('group'), required=False)
+
     # students = forms.ModelMultipleChoiceField(queryset=Student.objects.filter(group__isnull=True), required=False)
 
     def save(self, commit=True):
@@ -36,3 +37,11 @@ class UpdateGroupForm(GroupBaseForm):
         exclude = [
             'group_start_date'
         ]
+
+
+class GroupFilterForm(FilterSet):
+    class Meta:
+        model = Group
+        fields = {
+            'group_name': ['exact', 'icontains'],
+        }
