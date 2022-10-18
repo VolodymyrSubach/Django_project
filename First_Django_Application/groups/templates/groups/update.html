@@ -11,16 +11,19 @@ Update group
         <div class="col-3"></div>
         <div class="col">
             <form method="post">
-                {%  csrf_token %}
-                {{ form|crispy }}
-                <input type="submit" class="btn btn-outline-primary btn-sm" value="Update">
-                <a class="btn btn-outline-secondary btn-sm" href="{% url 'group:list' %}">Cancel</a>
+                {% csrf_token %}
+                <table>
+                    {{ form|crispy }}
+                </table>
+                <input class="btn btn-outline-primary" type="submit" value="Update">
+                <a class="btn btn-outline-success" href="{% url 'group:list' %}">Cancel</a>
             </form>
         </div>
-            <div class="col-3"></div>
-                {% with objects_list=group.students.all group_on=False %}
-                    {% include 'includes/students_tab.html' %}
-                {% endwith %}
-
+        <div class="col-3"></div>
+    </div>
+    <div class="row">
+        {%  with objects_list=students.all group_on=False %}
+            {% include 'includes/students_tab.html' %}
+        {% endwith %}
     </div>
 {% endblock %}
