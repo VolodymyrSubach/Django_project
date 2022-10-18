@@ -14,6 +14,26 @@
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Course
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'course:create' %}">Create</a></li>
+            <li><a class="dropdown-item" href="{% url 'course:list' %}">List</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Group
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'group:create' %}">Create</a></li>
+            <li><a class="dropdown-item" href="{% url 'group:list' %}">List</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Student
           </a>
           <ul class="dropdown-menu">
@@ -32,16 +52,7 @@
             <li><hr class="dropdown-divider"></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Group
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'group:create' %}">Create</a></li>
-            <li><a class="dropdown-item" href="{% url 'group:list' %}">List</a></li>
-            <li><hr class="dropdown-divider"></li>
-          </ul>
-        </li>
+
       </ul>
 {#      <form class="d-flex" role="search">#}
 {#        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">#}
