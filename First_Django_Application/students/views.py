@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 from django.db.models import Q  # noqa
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -5,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt  # noqa
 from django.views.generic import UpdateView
 
-from core.views import CustomUpdateBaseView # noqa
+from core.views import CustomUpdateBaseView  # noqa
 
 from students.forms import CreateStudentForm, StudentFilterForm
 from students.forms import UpdateStudentForm
@@ -19,33 +22,45 @@ from students.models import Student
 #     },
 #     location='query'
 # )
-def get_students(request):
-    students = Student.objects.select_related('group')
+# def get_students(request):
+#     students = Student.objects.select_related('group')
+#
+#     filter_form = StudentFilterForm(data=request.GET, queryset=students)
+#
+#     # if len(args) != 0 and args.get('first_name') or args.get('last_name'):
+#     #     students = students.filter(
+#     #         Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
+#     #     )
+#
+#     return render(
+#         request=request,
+#         template_name='students/list.html',
+#         context={
+#             # 'title': 'List of students',
+#             # 'students': students,
+#             'filter_form': filter_form
+#         }
+#     )
 
-    filter_form = StudentFilterForm(data=request.GET, queryset=students)
 
-    # if len(args) != 0 and args.get('first_name') or args.get('last_name'):
-    #     students = students.filter(
-    #         Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
-    #     )
+class ListStudentView(ListView):
+    model = Student
+    template_name = 'students/list.html'
 
-    return render(
-        request=request,
-        template_name='students/list.html',
-        context={
-            # 'title': 'List of students',
-            # 'students': students,
-            'filter_form': filter_form
-        }
-    )
+    def get_queryset(self):
+        students = Student.objects.select_related('group')
+        filter_form = StudentFilterForm(data=self.request.GET, queryset=students)
+
+        return filter_form
 
 
+@login_required
 def detail_student(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
     return render(request, 'students/detail.html', {'student': student})
 
 
-# @csrf_exempt
+@login_required
 def create_student(request):
     if request.method == 'GET':
 
@@ -80,13 +95,14 @@ def create_student(request):
 #     template_name = 'students/update.html'
 
 
-class UpdateStudentView(UpdateView):
+class UpdateStudentView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = UpdateStudentForm
     success_url = reverse_lazy('students:list')
     template_name = 'students/update.html'
 
 
+@login_required
 def delete_student(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
 

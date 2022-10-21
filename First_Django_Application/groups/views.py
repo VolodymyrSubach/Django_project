@@ -2,7 +2,7 @@ from django.db.models import Q  # noqa
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from groups.forms import CreateGroupForm, GroupUpdateForm
 from groups.models import Group
@@ -56,6 +56,23 @@ def create_group(request):
     return render(request, 'groups/create.html', {'form': form})
 
 
+class CreateGroupView(CreateView):
+    model = Group
+    form_class = CreateGroupForm
+    success_url = reverse_lazy('group:list')
+    template_name = 'groups/create.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        group = form.save()
+        students = form.cleaned_data['students']
+        for student in students:
+            student.group = group
+            student.save()
+
+        return response
+
+
 # def update_group(request, group_id):
 #     group = get_object_or_404(Group, pk=group_id)
 #     if request.method == 'GET':
@@ -79,7 +96,7 @@ def create_group(request):
 class UpdateGroupView(UpdateView):
     model = Group
     form_class = GroupUpdateForm
-    success_url = reverse_lazy('groups:list')
+    success_url = reverse_lazy('group:list')
     template_name = 'groups/update.html'
 
     def get_context_data(self, **kwargs):

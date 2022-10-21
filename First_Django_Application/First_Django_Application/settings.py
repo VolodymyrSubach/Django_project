@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'groups.apps.GroupsConfig',
     'teachers.apps.TeachersConfig',
     'courses.apps.CoursesConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -143,3 +147,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+EMAIL_PORT = 1025
