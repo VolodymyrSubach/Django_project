@@ -22,7 +22,7 @@ List of groups
                 {% for group in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ group.group_name }}</td>
+                        <td><a href="{% url 'group:detail' group.pk %}">{{ group.group_name }}</a> </td>
                         <td>
                             {% if group.headman %}
                                 {{ group.headman.first_name }} {{ group.headman.last_name }}

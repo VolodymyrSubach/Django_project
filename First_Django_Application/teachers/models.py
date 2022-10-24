@@ -16,7 +16,7 @@ validate_name = ['Python', 'Php', 'Java', 'Javascript', 'HR generalist',
 
 
 class Teacher(PersonModel):
-    subject_name = models.CharField(max_length=13, validators=[validate_group_description])
+    subject_name = models.CharField(max_length=13, validators=[validate_group_description], null=True, blank=True)
 
     salary = models.PositiveIntegerField(default=10_000)
 

@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_filters %}
+
 {% block title %}
-Create a new teacher
+Create a teacher
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        {%  csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table><br>
-        <input type="submit" class="btn btn-outline-primary btn-sm" value="Create">
-        <a class="btn btn-outline-secondary btn-sm" href="{% url 'teacher:list' %}">Cancel</a>
-    </form>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col">
+            <form method="post">
+                {%  csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn btn-outline-primary btn-sm" value="Create">
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'teacher:list' %}">Cancel</a>
+            </form>
+        </div>
+    <div class="col-3"></div>
+    </div>
 {% endblock %}
