@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+
 from os import getenv
 from pathlib import Path
+
+from django.urls import reverse_lazy
 
 from dotenv import load_dotenv
 
@@ -149,3 +152,5 @@ INTERNAL_IPS = [
 ]
 
 EMAIL_PORT = 1025
+
+LOGIN_REDIRECT_URL = reverse_lazy('home')
