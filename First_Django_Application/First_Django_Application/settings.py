@@ -62,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'core.middlewares.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'First_Django_Application.urls'
