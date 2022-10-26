@@ -15,7 +15,7 @@ class CreateTeacherForm(forms.ModelForm):
         label='Subject',
         required=False,
     )
-    subject_name.choices.insert(0, (0, '--------'))
+    subject_name.choices.insert(0, ('', '--------'))
 
     class Meta:
         model = Teacher
