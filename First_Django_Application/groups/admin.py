@@ -19,6 +19,33 @@ class StudentInlineTable(admin.TabularInline):
         return False
 
 
+class TeacherInlineTable(admin.TabularInline):
+    from teachers.models import Teacher
+    model = Teacher.groups.through
+    fields = ['first_name', 'last_name', 'email', 'subject_name']
+    extra = 0
+    readonly_fields = ['first_name', 'last_name', 'email', 'subject_name']
+    exclude = [model]
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def first_name(self, obj):
+        return obj.teacher.first_name
+
+    def last_name(self, obj):
+        return obj.teacher.last_name
+
+    def email(self, obj):
+        return obj.teacher.email
+
+    def subject_name(self, obj):
+        return obj.teacher.subject_name
+
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('group_name', 'group_start_date')
@@ -26,7 +53,6 @@ class GroupAdmin(admin.ModelAdmin):
     fields = (
         'group_name',
         'headman',
-        'teachers',
         ('create_datetime', 'update_datetime'),
     )
     readonly_fields = ('create_datetime', 'update_datetime')
@@ -40,4 +66,4 @@ class GroupAdmin(admin.ModelAdmin):
 
         return form
 
-    inlines = [StudentInlineTable, ]
+    inlines = [StudentInlineTable, TeacherInlineTable, ]
