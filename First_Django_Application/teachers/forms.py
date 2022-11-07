@@ -4,8 +4,19 @@ from django import forms
 
 from teachers.models import Teacher
 
+SUBJECT_NAME = (('Python', 'Python'), ('Php', 'Php'), ('Java', 'Java'), ('Javacsript', 'Javacsript'),
+                ('HR generalist', 'HR generalist'),
+                ('QA Manual', 'QA Manual'), ('QA Automation', 'QA Automation'), ('UI/UX Design', 'UI/UX Design'))
+
 
 class CreateTeacherForm(forms.ModelForm):
+    subject_name = forms.ChoiceField(
+        choices=SUBJECT_NAME,
+        label='Subject',
+        required=False,
+    )
+    subject_name.choices.insert(0, ('', '--------'))
+
     class Meta:
         model = Teacher
         fields = [
@@ -18,16 +29,18 @@ class CreateTeacherForm(forms.ModelForm):
         ]
 
         widgets = {
-            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
-            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'email': forms.DateInput(attrs={'class': 'form-control'}),
-            'phone': forms.DateInput(attrs={'class': 'form-control'}),
-            'subject_name': forms.DateInput(attrs={'class': 'form-control'})
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
         }
 
 
 class UpdateTeacherForm(forms.ModelForm):
+    subject_name = forms.ChoiceField(
+        choices=SUBJECT_NAME,
+        label='Subject',
+        required=False,
+    )
+    subject_name.choices.insert(0, (0, '--------'))
+
     class Meta:
         model = Teacher
         fields = [
@@ -40,11 +53,7 @@ class UpdateTeacherForm(forms.ModelForm):
         ]
 
         widgets = {
-            'first_name': forms.DateInput(attrs={'class': 'form-control'}),
-            'last_name': forms.DateInput(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'phone': forms.DateInput(attrs={'class': 'form-control'}),
-            'subject_name': forms.DateInput(attrs={'class': 'form-control'})
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
         }
 
     def clean_first_name(self):

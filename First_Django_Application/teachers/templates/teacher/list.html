@@ -1,26 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+    List of Teachers
+{% endblock %}
 
 
 {% block content %}
 
-    <div class="row mb-3">
-        <div class="col">
-        <form method='GET'>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingFirstName" placeholder="A" name="first_name">
-                <label for="floatingFirstName">First name</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingLastName" placeholder="B" name="last_name">
-                <label for="floatingLastName">Last name</label>
-            </div>
-            <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
-        </form>
-        </div>
-    <div class="col-6"></div>
-    </div>
     <div class="row">
     <table class="table table-hover">
     <thead>
@@ -30,20 +16,24 @@
             <th>Last name</th>
             <th>Subject</th>
             <th>Age</th>
-            <th><i class="bi bi-pencil-fill"></i></th>
-            <th><i class="bi bi-trash-fill"></i></th>
+            {% if user.is_authenticated %}
+                <th><i class="bi bi-pencil-fill"></i></th>
+                <th><i class="bi bi-trash-fill"></i></th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
-    {% for teacher in teachers %}
+    {% for teacher in object_list %}
     <tr>
         <td>{{ forloop.counter }}</td>
         <td><a href="{% url 'teacher:detail' teacher.pk %}"> {{ teacher.first_name }}</a></td>
         <td>{{ teacher.last_name }}</td>
         <td>{{ teacher.subject_name }}</td>
         <td>{% if teacher.get_age %}{{ teacher.get_age }}{% endif %}</td>
-        <td><a class="btn btn-outline-primary btn-sm" href="{% url 'teacher:update' teacher.pk %}">Edit</a></td>
-        <td><a class="btn btn-outline-danger btn-sm" href="{% url 'teacher:delete' teacher.pk %}">Delete</a></td>
+        {% if user.is_authenticated %}
+            <td><a class="btn btn-outline-primary btn-sm" href="{% url 'teacher:update' teacher.pk %}">Edit</a></td>
+            <td><a class="btn btn-outline-danger btn-sm" href="{% url 'teacher:delete' teacher.pk %}">Delete</a></td>
+        {% endif %}
     </tr>
      {% endfor %}
     </tbody>

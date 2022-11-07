@@ -43,7 +43,7 @@
 {#                <input type="text" class="form-control" id="floatingLastName" placeholder="B" name="last_name">#}
 {#                <label for="floatingLastName">Last name</label>#}
 {#            </div>#}
-            {{ object_list.form|crispy }}
+            {{ form|crispy }}
             <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
         </form>
         </div>
@@ -54,7 +54,7 @@
     </div>
     </div>
     <div class="row">
-        {% with objects_list=object_list.qs  group_on=True %}
+        {% with objects_list=object_list  group_on=True %}
             {% include 'includes/students_tab.html' %}
         {% endwith %}
     </div>
