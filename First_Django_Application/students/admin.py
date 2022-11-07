@@ -48,7 +48,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     def group_name(self, instance):
         if instance.group:
-            return f'{instance.group.group_name} y.o.'
+            return f'{instance.group.group_name}'
 
         return ''
 
